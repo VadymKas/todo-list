@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import ReactPaginate from 'react-paginate';
 
 import ToDoItem from '../ToDoItem';
 import { tasksSelector, addTask } from '../../redux/slices/listSlice';
 
-import styles from './ToDoList.module.css';
+import styles from './ToDoList.module.scss';
 
 const ToDoList = () => {
   const [inputValue, setInputValue] = useState('');
@@ -35,27 +36,46 @@ const ToDoList = () => {
       <div className={styles.list}>
         <div className={styles.list__form}>
           <input
+            className={styles.list__input}
             value={inputValue}
             onChange={inputValueHandler}
             placeholder='Please, write your task!'
           />
-          <button onClick={addTaskHandler}>Add</button>
+          <button
+            className={styles.list__button}
+            onClick={addTaskHandler}>
+            Add
+          </button>
         </div>
         <div className={styles.list__items}>
-          {dataPerPage?.map((task) => (
-            <ToDoItem
-              key={task.id}
-              id={task.id}
-              {...task}
-            />
-          ))}
+          {dataPerPage.length > 0 ? (
+            dataPerPage?.reverse().map((task) => (
+              <ToDoItem
+                key={task.id}
+                id={task.id}
+                {...task}
+              />
+            ))
+          ) : (
+            <div className={styles.list__empty}>Taks list is empty</div>
+          )}
         </div>
       </div>
-      <div className={styles.pagination}>
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-          <button onClick={() => setCurrentPage(page - 1)}>{page}</button>
-        ))}
-      </div>
+      <ReactPaginate
+        className={styles.pagination}
+        pageLinkClassName={styles.pagination__item}
+        previousLinkClassName={styles.pagination__item_prev}
+        nextLinkClassName={styles.pagination__item_next}
+        activeClassName={styles.pagination__item_active}
+        nextLabel='>'
+        previousLabel='<'
+        breakLabel='...'
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={1}
+        onPageChange={(e) => setCurrentPage(e.selected)}
+        pageCount={totalPages}
+        renderOnZeroPageCount={null}
+      />
     </>
   );
 };

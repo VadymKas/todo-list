@@ -8,7 +8,7 @@ import {
   taskTextSelector,
 } from '../../redux/slices/listSlice';
 
-import styles from './ToDoItem.module.css';
+import styles from './ToDoItem.module.scss';
 
 const ToDoItem = ({ id, description, completed }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -73,23 +73,25 @@ const ToDoItem = ({ id, description, completed }) => {
         }`}>
         {description}
       </h3>
-      <button
-        onClick={toggleTaskStatusHandler}
-        className={`${styles.item__button} ${styles.item__button_status} ${
-          completed ? '' : styles.item__button_crossed
-        }`}>
-        {completed ? 'Done' : 'In Process'}
-      </button>
-      <button
-        onClick={editTaskHandler}
-        className={`${styles.item__button} ${styles.item__button_edit}`}>
-        Edit
-      </button>
-      <button
-        onClick={removeTaskHandler}
-        className={`${styles.item__button} ${styles.item__button_remove}`}>
-        Remove
-      </button>
+      <div className={styles.item__buttons}>
+        <button
+          onClick={toggleTaskStatusHandler}
+          className={`${styles.item__button} ${styles.item__button_status} ${
+            completed ? '' : styles.item__button_crossed
+          }`}>
+          {completed ? 'Done' : 'In Process'}
+        </button>
+        <button
+          onClick={editTaskHandler}
+          className={`${styles.item__button} ${styles.item__button_edit}`}>
+          Edit
+        </button>
+        <button
+          onClick={removeTaskHandler}
+          className={`${styles.item__button} ${styles.item__button_remove}`}>
+          Remove
+        </button>
+      </div>
     </>
   );
 

@@ -1,0 +1,78 @@
+@import '../../scss/color';
+
+.list {
+  margin: 25px auto;
+
+  &__form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  &__input {
+    width: 50vw;
+    background-color: transparent;
+    border: 1px solid $main;
+    border-radius: 15px 0 0 15px;
+    padding: 5px 10px;
+  }
+
+  &__button {
+    color: $main;
+    background-color: $secondary;
+    border: 1px solid $main;
+    border-left: 0;
+    border-radius: 0 15px 15px 0;
+    padding: 5px 15px;
+    cursor: pointer;
+  }
+
+  &__button:hover {
+    color: $white;
+    background-color: $main;
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__empty {
+    font-size: 24px;
+    font-weight: 600;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  list-style-type: none;
+
+  &__item,
+  &__item_prev,
+  &__item_next {
+    width: 25px;
+    height: 25px;
+    display: inline-flex;
+    justify-content: center;
+    color: $main;
+    background-color: $secondary;
+    border: 1px solid $main;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &__item:hover {
+    color: $white;
+    background-color: $main;
+  }
+
+  &__item_active a {
+    color: $white;
+    background-color: $main;
+  }
+}
