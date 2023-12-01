@@ -1,0 +1,15 @@
+.list {
+  margin: 30px auto;
+}
+
+.list__form {
+  margin-bottom: 20px;
+}
+
+.list__items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
