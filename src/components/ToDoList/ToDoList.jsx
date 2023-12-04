@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 
 import ToDoItem from '../ToDoItem';
-import { tasksSelector, addTask } from '../../redux/slices/listSlice';
+import {
+  tasksSelector,
+  addTask,
+  fetchTasks,
+  getLocalTasks,
+} from '../../redux/slices/listSlice';
 
 import styles from './ToDoList.module.scss';
 
@@ -19,6 +24,16 @@ const ToDoList = () => {
   const startIndex = currentPage * tasksLimit;
   const endIndex = startIndex + tasksLimit;
   const dataPerPage = tasks.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    const localTasks = localStorage.getItem('tasks');
+
+    if (!localTasks?.length) {
+      dispatch(fetchTasks());
+    } else {
+      dispatch(getLocalTasks());
+    }
+  }, []);
 
   const inputValueHandler = (e) => {
     setInputValue(e.target.value);
@@ -49,7 +64,7 @@ const ToDoList = () => {
         </div>
         <div className={styles.list__items}>
           {dataPerPage.length > 0 ? (
-            dataPerPage?.reverse().map((task) => (
+            dataPerPage?.map((task) => (
               <ToDoItem
                 key={task.id}
                 id={task.id}

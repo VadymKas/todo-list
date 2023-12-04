@@ -10,7 +10,7 @@ import {
 
 import styles from './ToDoItem.module.scss';
 
-const ToDoItem = ({ id, description, completed }) => {
+const ToDoItem = ({ id, title, completed }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
@@ -30,7 +30,7 @@ const ToDoItem = ({ id, description, completed }) => {
   };
 
   const setTaskTextHandler = (e) => {
-    dispatch(editTask({ id: id, description: inputValue }));
+    dispatch(editTask({ id: id, title: inputValue }));
     setIsEditing(false);
   };
 
@@ -52,26 +52,28 @@ const ToDoItem = ({ id, description, completed }) => {
         value={inputValue}
         placeholder='Please, edit task text'
       />
-      <button
-        onClick={setTaskTextHandler}
-        className={`${styles.item__button} ${styles.item__button_ok}`}>
-        Ok
-      </button>
-      <button
-        onClick={cancelTaskHandler}
-        className={`${styles.item__button} ${styles.item__button_cancel}`}>
-        Cancel
-      </button>
+      <div className={styles.item__buttons}>
+        <button
+          onClick={setTaskTextHandler}
+          className={`${styles.item__button} ${styles.item__button_ok}`}>
+          Ok
+        </button>
+        <button
+          onClick={cancelTaskHandler}
+          className={`${styles.item__button} ${styles.item__button_cancel}`}>
+          Cancel
+        </button>
+      </div>
     </>
   );
 
   const viewVersion = (
     <>
       <h3
-        className={`${styles.item__description} ${
-          completed ? styles.item__description_crossed : ''
+        className={`${styles.item__title} ${
+          completed ? styles.item__title_crossed : ''
         }`}>
-        {description}
+        {title}
       </h3>
       <div className={styles.item__buttons}>
         <button
